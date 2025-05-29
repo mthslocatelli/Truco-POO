@@ -2,9 +2,15 @@
      width="30%"
      style="padding: 10px">
 
-# << Título do projeto >>
+# TRUCO ONLINE COM SALAS PRIVADAS
 
-## << Descrição breve do domínio do problema >>
+## Criação e gerenciamento de salas privadas, com autenticação por código ou convite;
+## Comunicação em rede entre jogadores, garantindo sincronização dos estados do jogo;
+## Interface gráfica amigável e responsiva, desenvolvida com Qt;
+
+## Lógica de regras do truco implementada em C++, respeitando as variantes regionais (ex: paulista ou mineiro);
+
+## Suporte a chat e interações sociais básicas, típicas do ambiente de jogo informal.
 
 > Repositório destinado para o desenvolvimento do projeto final da disciplina 
 > PRG22107 - Programação orientada objeto. 
