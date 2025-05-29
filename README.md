@@ -4,7 +4,7 @@
 
 # TRUCO ONLINE
 
-### O projeto busca solucionar a falta de uma plataforma eficiente e intuitiva para jogar truco online em tempo real, com foco em salas privadas, onde amigos possam se reunir virtualmente para partidas organizadas. A solução deve oferecer:
+### O projeto busca desenvolver um jogo de truco online em tempo real, com foco em salas privadas, onde amigos possam se reunir virtualmente para partidas organizadas. A solução deve oferecer:
 - Criação e gerenciamento de salas privadas, com autenticação por código ou convite;
 - Comunicação em rede entre jogadores, garantindo sincronização dos estados do jogo;
 - Interface gráfica amigável e responsiva, desenvolvida com Qt;
