@@ -14,7 +14,7 @@
 > Repositório destinado para o desenvolvimento do projeto final da disciplina 
 > PRG22107 - Programação orientada objeto. 
 > 
-> Aluno: Matheus de Lima Locatelli
+> Aluno: Matheus de Lima Locatelli  
 > Professor: Hugo Marcondes
 
 <p align=center><strong>SUMÁRIO</strong></p>
