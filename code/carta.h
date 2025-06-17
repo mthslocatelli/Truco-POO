@@ -1,0 +1,29 @@
+#ifndef CARTA_H
+#define CARTA_H
+
+#include <QString>
+
+enum Naipe {Paus, Ouros, Copas, Espadas};
+
+class Carta {
+public:
+    Carta(int valor = 0, Naipe naipe = Paus);
+
+    int getValor() const;
+    Naipe getNaipe() const;
+    QString toString() const;
+    int getNaipeValue(const Naipe naipe) const;
+    static void setManilha(const Carta& vira);
+    static bool isManilha(const Carta& c);
+
+    // Para comparação e regras (ordenar)
+    bool operator==(const Carta& other) const;
+    bool operator<(const Carta& other) const;
+    bool operator>(const Carta& outra) const;
+
+private:
+    int valor; // 4 a 12 (no truco paulista, 4 é menor, depois 5... até 12)
+    Naipe naipe;
+};
+
+#endif // CARTA_H
