@@ -1,25 +1,51 @@
-<img src="img/ifsc-logo.png"
-     width="30%"
-     style="padding: 10px">
+<p align="center">
+  <img src="img/ifsc-logo.png" width="200" style="padding: 10px"><br>
+</p>
 
-# TRUCO ONLINE
+<h1 align="center">TRUCO ONLINE</h1>
 
-### O projeto busca desenvolver um jogo de truco online em tempo real, com foco em salas privadas, onde amigos possam se reunir virtualmente para partidas organizadas. A solução deve oferecer:
-- Criação e gerenciamento de salas privadas, com autenticação por código ou convite;
-- Comunicação em rede entre jogadores, garantindo sincronização dos estados do jogo;
-- Interface gráfica amigável e responsiva, desenvolvida com Qt;
-- Lógica de regras do truco implementada em C++, respeitando as variantes regionais (ex: paulista ou mineiro);
-- Suporte a chat e interações sociais básicas, típicas do ambiente de jogo informal.
+<p align="center">
+  <i>Projeto final da disciplina PRG22107 - Programação Orientada a Objetos</i><br>
+  <b>Aluno:</b> Matheus de Lima Locatelli <br>
+  <b>Professor:</b> Hugo Marcondes <br>
+</p>
 
-> Repositório destinado para o desenvolvimento do projeto final da disciplina 
-> PRG22107 - Programação orientada objeto. 
-> 
-> Aluno: Matheus de Lima Locatelli  
-> Professor: Hugo Marcondes
+---
 
-<p align=center><strong>SUMÁRIO</strong></p>
+## 🎯 Objetivo do Projeto
 
-[**1. ANÁLISE ORIENTADA A OBJETO**](./analise.md)<br>
-[**2. PROJETO ORIENTADO A OBJETO**](./projeto.md)<br>
-[**3. IMPLEMENTAÇÃO (C++)**](./implementacao.md)<br>
-[**4. TESTES**](./testes.md)<br>
+Este projeto tem como finalidade desenvolver um **jogo de truco online em tempo real**, com foco em **salas privadas**, onde amigos possam se reunir virtualmente para partidas organizadas.
+
+## ⚙️ Funcionalidades
+
+- ✅ Criação e gerenciamento de salas privadas com autenticação via código ou convite;
+- ✅ Comunicação em rede entre jogadores com sincronização de estado;
+- ✅ Interface gráfica amigável e responsiva, desenvolvida com **Qt**;
+- ✅ Implementação das regras do truco em **C++**, com suporte a variantes regionais (como o truco paulista);
+- ✅ Sistema de chat básico e interações sociais típicas de jogos informais.
+
+---
+
+## 🧠 Estrutura do Projeto
+
+| Seção | Descrição |
+|-------|----------|
+| [1. Análise Orientada a Objeto](./analise.md) | Abordagem inicial do problema utilizando princípios de OOP |
+| [2. Projeto Orientado a Objeto](./projeto.md) | Modelagem das classes, relacionamentos e estruturas principais |
+| [3. Implementação (C++)](./implementacao.md) | Código-fonte com a lógica do jogo, interface e rede |
+| [4. Testes](./testes.md) | Estratégias e resultados dos testes aplicados ao jogo |
+
+---
+
+## 📸 Capturas de Tela
+
+(Adicione aqui prints do jogo em execução, se desejar)
+
+---
+
+## 🚀 Como Executar
+
+1. Instale o [Qt Creator](https://www.qt.io/download) com suporte ao Qt 5 ou superior.
+2. Clone este repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/truco_online.git
