@@ -12,13 +12,19 @@ Possíveis requisitos funcionais e não-funcionais podem ser elencados aqui.
 
 ## Diagrama de Casos de Uso
 
-Apresentar o diagram de casos de uso, identificando as funcionalidades do
-sistema assim como os atores envolvidos
+![Descrição da Imagem](img/Diagrama%20de%20caso%20de%20uso.png)
  
 ## Diagrama de Domínio do problema
 
-Elaborar um diagrama conceitual do domínio do problema.
+![Descrição da Imagem](img/diagrama%20de%20dominio.png)
+ 
+## Diagrama de Classe
 
+![Descrição da Imagem](img/diagrama%20de%20classes%20BR.png) 
+
+## Diagrama de Sequência
+
+![Descrição da Imagem](img/diagrama%20de%20sequencia.png)
 
 <div align="center">
 
