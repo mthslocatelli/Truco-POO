@@ -6,9 +6,46 @@
 
 ## Descrição Geral do domínio do problema
 
-Descrever de forma geral o domínio do problema.
+O projeto Truco Paulista Online foi desenvolvido com o objetivo de permitir que jogadores humanos participem de partidas de Truco pela internet, interagindo entre si em tempo real com suporte à substituição de jogadores ausentes por bots automatizados. O sistema utiliza uma arquitetura distribuída baseada no modelo cliente-servidor, desenvolvida com a biblioteca Qt em C++, usando `QTcpSocket` para comunicação entre os clientes e o servidor.
 
-Possíveis requisitos funcionais e não-funcionais podem ser elencados aqui.
+### Escopo do Problema
+
+O domínio central envolve o gerenciamento de partidas de Truco, que por sua vez depende da criação de salas, controle de jogadores, administração das jogadas (jogar carta, pedir truco, aceitar/recusar) e manutenção do estado do jogo. É fundamental garantir:
+
+- Sincronização entre múltiplos jogadores em tempo real.
+- Controle consistente do estado das partidas mesmo com desconexões e reconexões.
+- Substituição de jogadores ausentes por bots.
+- Persistência de dados como códigos de sala, UUIDs e status dos jogadores.
+
+### Tecnologias e Estratégias
+
+- Comunicação entre cliente e servidor utilizando `QTcpSocket` e mensagens em formato **JSON**.
+- Identificação persistente dos jogadores por meio de arquivos locais `id_jogador.txt` com UUIDs gerados via `QUuid`.
+- Armazenamento e gerenciamento de salas e status dos jogadores em banco de dados **SQLite**, através do arquivo `salas.db`.
+- Separação clara entre cliente (interface e ações do usuário) e servidor (lógica do jogo e orquestração de estados).
+
+### Requisitos Funcionais
+
+- Criar sala de jogo com código único.
+- Entrar em sala existente informando o código.
+- Procurar partida com jogadores disponíveis.
+- Jogar carta da mão atual.
+- Pedir truco e responder ao pedido.
+- Sair da sala a qualquer momento.
+- Jogar contra bots automaticamente.
+- Sincronizar estado da partida entre todos os jogadores conectados.
+- Registrar e controlar as ações dos jogadores.
+
+### Requisitos Não-Funcionais
+
+- A comunicação entre cliente e servidor deve ser segura, validada e tolerante a falhas.
+- O sistema deve ser modular, extensível e reutilizável (princípios de POO).
+- As mensagens JSON devem seguir um protocolo bem definido e documentado.
+- O sistema deve funcionar com latência mínima para manter a responsividade do jogo.
+- O servidor deve lidar com múltiplas conexões simultâneas sem interferência entre as salas.
+- O banco de dados deve ser leve, confiável e local (SQLite).
+
+---
 
 ## Diagrama de Casos de Uso
 O diagrama de casos de uso representa as funcionalidades principais do sistema Truco Paulista Online e os atores envolvidos.
