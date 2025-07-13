@@ -22,8 +22,6 @@ Este projeto tem como finalidade desenvolver um **jogo de truco online em tempo 
 - Comunicação em rede entre jogadores com sincronização de estado;
 - Interface gráfica amigável e responsiva, desenvolvida com **Qt**;
 
----
-
 ## Conectividade e Rede do Projeto
 
 O **Truco Online** foi implementado no modelo cliente-servidor, onde o servidor centraliza toda a lógica do jogo e mantém o estado das partidas, enquanto os clientes se conectam para enviar comandos e receber atualizações.
@@ -53,8 +51,6 @@ Dessa forma, mesmo sem IP público fixo, a comunicação via sockets TCP encapsu
 - Permite jogos online entre amigos em diferentes locais com segurança;
 - Facilita o desenvolvimento e testes sem depender de infraestrutura externa.
 
----
-
 ## Estrutura do Projeto
 
 | Seção | Descrição |
@@ -64,17 +60,21 @@ Dessa forma, mesmo sem IP público fixo, a comunicação via sockets TCP encapsu
 | [3. Implementação (C++)](./implementacao.md) | Código-fonte com a lógica do jogo, interface Qt e comunicação em rede via sockets TCP JSON |
 | [4. Testes](./testes.md) | Estratégias e resultados dos testes aplicados ao jogo |
 
----
 
 ## Capturas de Tela
 
-(Adicione aqui prints do jogo em execução, se desejar)
+### Tela da partida
+<p align="center">
+  <img src="img/tela%20partida.png" width="1000" style="padding: 10px"><br>
+</p>
 
 ---
 
 ## Como Executar
 
-1. Instale o [Qt Creator](https://www.qt.io/download) com suporte ao Qt 5 ou superior.
-2. Clone este repositório:
+1. Cire uma conta no site do [Qt](https://login.qt.io/login) (se já não possuir).
+2. Instale o [Qt Creator](https://www.qt.io/download) com suporte ao Qt 5 ou superior.
+3. Instale o [Radmin VPN](https://download.radmin-vpn.com/download/files/Radmin_VPN_1.4.4642.1.exe).
+4. Clone este repositório:
    ```bash
-   git clone https://github.com/seu-usuario/truco_online.git
+   git clone https://github.com/mthslocatelli/Truco-POO.git
