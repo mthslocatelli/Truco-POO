@@ -12,19 +12,19 @@
 
 ---
 
-## 🎯 Objetivo do Projeto
+## Objetivo do Projeto
 
 Este projeto tem como finalidade desenvolver um **jogo de truco online em tempo real**, com foco em **salas privadas**, onde amigos possam se reunir virtualmente para partidas organizadas.
 
-## ⚙️ Funcionalidades
+## Funcionalidades
 
-- ✅ Criação e gerenciamento de salas privadas com autenticação via código ou convite;
-- ✅ Comunicação em rede entre jogadores com sincronização de estado;
-- ✅ Interface gráfica amigável e responsiva, desenvolvida com **Qt**;
+- Criação e gerenciamento de salas privadas com autenticação via código ou convite;
+- Comunicação em rede entre jogadores com sincronização de estado;
+- Interface gráfica amigável e responsiva, desenvolvida com **Qt**;
 
 ---
 
-## 🌐 Conectividade e Rede do Projeto
+## Conectividade e Rede do Projeto
 
 O **Truco Online** foi implementado no modelo cliente-servidor, onde o servidor centraliza toda a lógica do jogo e mantém o estado das partidas, enquanto os clientes se conectam para enviar comandos e receber atualizações.
 
@@ -55,7 +55,7 @@ Dessa forma, mesmo sem IP público fixo, a comunicação via sockets TCP encapsu
 
 ---
 
-## 🧠 Estrutura do Projeto
+## Estrutura do Projeto
 
 | Seção | Descrição |
 |-------|----------|
@@ -66,13 +66,13 @@ Dessa forma, mesmo sem IP público fixo, a comunicação via sockets TCP encapsu
 
 ---
 
-## 📸 Capturas de Tela
+## Capturas de Tela
 
 (Adicione aqui prints do jogo em execução, se desejar)
 
 ---
 
-## 🚀 Como Executar
+## Como Executar
 
 1. Instale o [Qt Creator](https://www.qt.io/download) com suporte ao Qt 5 ou superior.
 2. Clone este repositório:
