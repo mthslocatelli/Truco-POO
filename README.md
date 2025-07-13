@@ -21,8 +21,6 @@ Este projeto tem como finalidade desenvolver um **jogo de truco online em tempo 
 - ✅ Criação e gerenciamento de salas privadas com autenticação via código ou convite;
 - ✅ Comunicação em rede entre jogadores com sincronização de estado;
 - ✅ Interface gráfica amigável e responsiva, desenvolvida com **Qt**;
-- ✅ Implementação das regras do truco em **C++**, com suporte a variantes regionais (como o truco paulista);
-- ✅ Sistema de chat básico e interações sociais típicas de jogos informais.
 
 ---
 
