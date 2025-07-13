@@ -74,7 +74,7 @@ Dessa forma, mesmo sem IP público fixo, a comunicação via sockets TCP encapsu
 
 1. Cire uma conta no site do [Qt](https://login.qt.io/login) (se já não possuir).
 2. Instale o [Qt Creator](https://www.qt.io/download) com suporte ao Qt 5 ou superior.
-3. Instale o [Radmin VPN](https://download.radmin-vpn.com/download/files/Radmin_VPN_1.4.4642.1.exe).
+3. Instale o [Radmin VPN](https://www.radmin-vpn.com/).
 4. Clone este repositório:
    ```bash
    git clone https://github.com/mthslocatelli/Truco-POO.git
