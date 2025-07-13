@@ -79,7 +79,11 @@ Dessa forma, mesmo sem IP público fixo, a comunicação via sockets TCP encapsu
    ```bash
    git clone https://github.com/mthslocatelli/Truco-POO.git
 5. Vá para a pasta `code`.
-6. Abra o projeto da pasta `Cliente` pressionando `Ctrl + O` no Qt (selecione todo o conteúdo da pasta).
-7. Abra o projeto da pasta `Servidor` pressionando `Ctrl + O` no Qt (selecione todo o conteúdo da pasta).
-8. Abra o `Radmin VPN` e entre na rede **TRUCOLIMA**, senha: **trucolima**.
-9. Agora basta rodar os projetos do Qt pressionando `Ctrl + R` em cada projeto.
+### Caso queira rodar sem o Qt
+1. Abra o `Radmin VPN` e entre na rede **TRUCOLIMA**, senha: **trucolima**.
+2. Agora basta ir nas pastas `Cliente` e `Servidor` e procurar pelos arquivos executáveis nas pastas de `release`.
+### Caso queira rodar com o Qt  
+1. Abra o projeto da pasta `Cliente` pressionando `Ctrl + O` no Qt (selecione todo o conteúdo da pasta).
+2. Abra o projeto da pasta `Servidor` pressionando `Ctrl + O` no Qt (selecione todo o conteúdo da pasta).
+3. Abra o `Radmin VPN` e entre na rede **TRUCOLIMA**, senha: **trucolima**.
+4. Agora basta rodar os projetos do Qt pressionando `Ctrl + R` em cada projeto.
