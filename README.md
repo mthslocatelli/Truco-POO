@@ -82,4 +82,4 @@ Dessa forma, mesmo sem IP público fixo, a comunicação via sockets TCP encapsu
 6. Abra o projeto da pasta `Cliente` pressionando `Ctrl + O` no Qt (selecione todo o conteúdo da pasta).
 7. Abra o projeto da pasta `Servidor` pressionando `Ctrl + O` no Qt (selecione todo o conteúdo da pasta).
 8. Abra o `Radmin VPN` e entre na rede **TRUCOLIMA**, senha: **trucolima**.
-9. Agora basta rodar os projetos do Qt pressionando `Ctrl + R` em cada projeto.
+9. Agora basta buildar e rodar os projetos do Qt pressionando `Ctrl + R` em cada projeto.
