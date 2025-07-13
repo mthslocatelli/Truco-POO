@@ -1,0 +1,11 @@
+release/echoserver.o
+release/main.o
+release/mainwindow.o
+release/gameengine.o
+release/carta.o
+release/baralho.o
+release/jogador.o
+release/jogadorbot.o
+release/jogadorhumano.o
+release/moc_echoserver.o
+release/moc_mainwindow.o
