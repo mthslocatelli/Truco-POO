@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TelaLobby</class>
+ <widget class="QWidget" name="TelaLobby">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Sala de Espera</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="lblTituloSala">
+     <property name="text">
+      <string>Sala Código: 123456</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="layoutJogadores">
+     <item><widget class="QLabel" name="lblJogador1"><property name="text"><string>Jogador 1</string></property></widget></item>
+     <item><widget class="QLabel" name="lblJogador2"><property name="text"><string>Jogador 2</string></property></widget></item>
+     <item><widget class="QLabel" name="lblJogador3"><property name="text"><string>Jogador 3</string></property></widget></item>
+     <item><widget class="QLabel" name="lblJogador4"><property name="text"><string>Jogador 4</string></property></widget></item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QPushButton" name="btnIniciarPartida">
+     <property name="text">
+      <string>Iniciar Partida</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
