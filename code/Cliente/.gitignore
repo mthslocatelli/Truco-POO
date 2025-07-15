@@ -80,6 +80,3 @@ CMakeLists.txt.user*
 .rcc/
 .uic/
 /build*/
-
-# Ignorar pasta debug específica do seu projeto
-code/Cliente/debug/
