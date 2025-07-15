@@ -252,7 +252,7 @@ void TelaPartida::atualizarInterface() {
 
 void TelaPartida::on_btnCarta1_clicked() {
 
-    game->jogarCarta(0, 0);
+    game->jogarCarta(game->getMeuIdx(), 0);
     ui->btnCarta1->raise();
 
     // Cria animação
@@ -285,7 +285,7 @@ void TelaPartida::on_btnCarta1_clicked() {
 
 void TelaPartida::on_btnCarta2_clicked() {
 
-    game->jogarCarta(0, 1);
+    game->jogarCarta(game->getMeuIdx(), 1);
     ui->btnCarta2->raise();
     // Cria animação
     QPropertyAnimation* animacao = new QPropertyAnimation(ui->btnCarta2, "geometry");
@@ -316,7 +316,7 @@ void TelaPartida::on_btnCarta2_clicked() {
 
 void TelaPartida::on_btnCarta3_clicked() {
 
-    game->jogarCarta(0, 2);
+    game->jogarCarta(game->getMeuIdx(), 2);
     ui->btnCarta3->raise();
     // Cria animação
     QPropertyAnimation* animacao = new QPropertyAnimation(ui->btnCarta3, "geometry");
@@ -345,12 +345,13 @@ void TelaPartida::on_btnCarta3_clicked() {
     });
 }
 
-void TelaPartida::animarJogadaBot(QLabel* cartaBot, int idx, std::function<void()> aoTerminar) {
+void TelaPartida::animarJogadaBot(QLabel* cartaBot, int cartaAleatoria, int idx, std::function<void()> aoTerminar) {
     if (!cartaBot) {
         if (aoTerminar) aoTerminar();
         return;
     }
     qDebug() << "Jogando carta bot:" << cartaBot->objectName().toStdString();
+    game->jogarCarta(idx, -1);
 
     Carta proxCartaBot = game->botJogarCarta(idx);
     cartaBot->raise();
@@ -391,7 +392,7 @@ void TelaPartida::animarJogadaBot(QLabel* cartaBot, int idx, std::function<void(
     animacao->setEndValue(destino);
     animacao->start(QAbstractAnimation::DeleteWhenStopped);    // Após animação, realiza jogada
     connect(animacao, &QPropertyAnimation::finished, this, [=]() {
-        game->jogarCarta(idx, -1);
+        emit cartaJogada(cartaAleatoria);
         atualizarInterface();
         qDebug() << "Carta do bot jogada";
         if (aoTerminar) aoTerminar();
@@ -466,18 +467,16 @@ void TelaPartida::animarJogada(int idxJogador, QString naipe, QString valor, int
 void TelaPartida::executarJogadasBotsEncadeadas(int botIndex, int totalBots, int idxJogadorVencedor) {
 
     int idx = (idxJogadorVencedor + botIndex) % game->getJogadores().size();
+    qDebug() << "idx:" << idx <<"botIndex:"<<botIndex;
     if (botIndex > totalBots) {
-        game->setIdxAtual(idx);
         if (idx == 0) {
             qDebug() << "Reativando botões do jogador humano.";
             ui->btnCarta1->setEnabled(true);
             ui->btnCarta2->setEnabled(true);
             ui->btnCarta3->setEnabled(true);
         }
-
         return;
     }
-
 
     QLabel* cartaAnimada = nullptr;
     int cartaAleatoria = 0;
@@ -506,7 +505,7 @@ void TelaPartida::executarJogadasBotsEncadeadas(int botIndex, int totalBots, int
         return;
     }
 
-    animarJogadaBot(cartaAnimada, idx, [=]() {
+    animarJogadaBot(cartaAnimada, cartaAleatoria, idx, [=]() {
         executarJogadasBotsEncadeadas(botIndex + 1, totalBots, idxJogadorVencedor);
     });
 }

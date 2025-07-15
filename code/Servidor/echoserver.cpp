@@ -1,5 +1,7 @@
 #include "echoserver.h"
 #include <QSqlQuery>
+#include <QRandomGenerator>
+#include <QTimer>
 
 EchoServer::EchoServer(GameEngine* gameEngine, quint16 port, QObject *parent) : QObject(parent), game(gameEngine)
 {
@@ -268,12 +270,14 @@ void EchoServer::processCommand(QTcpSocket *client, const QJsonObject &command)
         }
 
     } else if (type == "JOGAR_CARTA") {
-
         QString codigo = payload["codigo"].toString();
         QString userID = payload["userID"].toString();
-        int idx = payload["indice"].toInt();
+        int idxJogadorQueJogou = payload["indice"].toInt();
+        int idxCartaQueJogou = payload["indiceCarta"].toInt();
         QString naipe = payload["cartaNaipe"].toString();
         QString valor = payload["cartaValor"].toString();
+
+        game->jogarCarta(idxJogadorQueJogou,idxCartaQueJogou);
 
         if (clientesPorSala.contains(codigo)) {
             const QList<QTcpSocket*> &clientes = clientesPorSala[codigo];
@@ -282,22 +286,56 @@ void EchoServer::processCommand(QTcpSocket *client, const QJsonObject &command)
             qDebug() << "Sala" << codigo << "não existe na lista clientesPorSala";
         }
 
-        QJsonObject broadcastPayload;
-        broadcastPayload["codigo"] = codigo;
-        broadcastPayload["userID"] = userID;
-        broadcastPayload["indiceProx"] = idx + 1;
-        broadcastPayload["indiceCarta"] = payload["indiceCarta"].toInt();
-        broadcastPayload["cartaNaipe"] = naipe;
-        broadcastPayload["cartaValor"] = valor;
-        broadcastPayload["message"] = "Atualização de jogada na sala";
+        QJsonObject broadcastPayloadInicial;
+        broadcastPayloadInicial["codigo"] = codigo;
+        broadcastPayloadInicial["userID"] = userID;
+        broadcastPayloadInicial["indiceProx"] = (idxJogadorQueJogou + 1) % int(game->getJogadores().size());
+        broadcastPayloadInicial["indiceCarta"] = idxCartaQueJogou;
+        broadcastPayloadInicial["cartaNaipe"] = naipe;
+        broadcastPayloadInicial["cartaValor"] = valor;
+        broadcastPayloadInicial["message"] = "Atualização de jogada na sala";
 
-        QJsonObject broadcast;
-        broadcast["type"] = type+"_ATUALIZATION";
-        broadcast["payload"] = broadcastPayload;
+        QJsonObject broadcastInicial;
+        broadcastInicial["type"] = type + "_ATUALIZATION";
+        broadcastInicial["payload"] = broadcastPayloadInicial;
 
-        // Envia para todos da sala
-        broadcastToSala(codigo, broadcast);
+        broadcastToSala(codigo, broadcastInicial);
+        qDebug() << "Turno anterior: "<<game->getTurnoAnterior() << "Turno atual: " << game->getTurno();
+        if((game->getTurnoAnterior() + game->getTurno()) % 12 == 0 && game->getTurnoAnterior() != 0){
 
+            game->proximaRodada();
+            QJsonObject broadcastPayloadInicial;
+
+            broadcastPayloadInicial["codigo"] = codigo;
+            broadcastPayloadInicial["userID"] = game->getJogadores()[game->getIdxJogadorVencedor()]->getNome();
+            broadcastPayloadInicial["indiceVencedor"] = game->getIdxJogadorVencedor();
+            broadcastPayloadInicial["pntDupla1Rodada1"] = game->getpontosRodadaDupla1()[0];
+            broadcastPayloadInicial["pntDupla1Rodada2"] = game->getpontosRodadaDupla1()[1];
+            broadcastPayloadInicial["pntDupla1Rodada3"] = game->getpontosRodadaDupla1()[2];
+            broadcastPayloadInicial["pntDupla2Rodada1"] = game->getpontosRodadaDupla2()[0];
+            broadcastPayloadInicial["pntDupla2Rodada2"] = game->getpontosRodadaDupla2()[1];
+            broadcastPayloadInicial["pntDupla2Rodada3"] = game->getpontosRodadaDupla2()[2];
+            broadcastPayloadInicial["message"] = "Atualização de vencedor na sala";
+
+            QJsonObject broadcastInicial;
+            broadcastInicial["type"] = "VENCEDOR_RODADA_ATUALIZATION";
+            broadcastInicial["payload"] = broadcastPayloadInicial;
+
+            broadcastToSala(codigo, broadcastInicial);
+        }
+
+
+
+        int proximoJogadorIdx = (idxJogadorQueJogou + 1) % game->getJogadores().size();
+
+        if (game->getJogadores()[proximoJogadorIdx]->getNome().contains("Bot")) {
+            qDebug() << "Próximo jogador é um bot. Agendando primeira jogada do bot.";
+            QTimer::singleShot(1000, this, [this, codigo, proximoJogadorIdx]() {
+                processarProximoTurnoBot(codigo, proximoJogadorIdx);
+            });
+        } else {
+            qDebug() << "Próximo jogador não é um bot. Fim da sequência de jogadas.";
+        }
     } else if (type == "INICIAR_PARTIDA") {
 
         QString codigo = payload["codigo"].toString();
@@ -367,4 +405,76 @@ void EchoServer::broadcastToSala(const QString& codigoSala, const QJsonObject& m
     }
 }
 
+void EchoServer::processarProximoTurnoBot(const QString& codigoSala, int idxBotAtual) {
+    qDebug() << "Processando turno do bot no índice:" << idxBotAtual << "para a sala:" << codigoSala;
+
+    if (idxBotAtual >= int(game->getJogadores().size()) ||
+        !game->getJogadores()[idxBotAtual]->getNome().contains("Bot")) {
+        qDebug() << "Sequência de bots interrompida: jogador no índice " << idxBotAtual << " não é bot ou índice inválido.";
+        return;
+    }
+
+    Jogador* bot = game->getJogadores()[idxBotAtual];
+
+    int qtdMaoBot = bot->getMao().size();
+    if (qtdMaoBot == 0) {
+        qDebug() << "Bot" << bot->getNome() << "não tem mais cartas na mão. Parando sequência de jogadas do bot.";
+        return;
+    }
+
+    int cartaAleatoriaIdx = QRandomGenerator::global()->bounded(0, static_cast<int>(qtdMaoBot));
+    Carta cartaQueOBoVaiJogar = bot->getMao()[cartaAleatoriaIdx];
+
+    game->jogarCarta(idxBotAtual, cartaAleatoriaIdx);
+
+    QJsonObject broadcastPayloadBot;
+    broadcastPayloadBot["codigo"] = codigoSala;
+    broadcastPayloadBot["userID"] = bot->getNome();
+    broadcastPayloadBot["indiceProx"] = (idxBotAtual + 1) % int(game->getJogadores().size());
+    broadcastPayloadBot["indiceCarta"] = cartaAleatoriaIdx;
+    broadcastPayloadBot["cartaNaipe"] = cartaQueOBoVaiJogar.toString().second;
+    broadcastPayloadBot["cartaValor"] = cartaQueOBoVaiJogar.toString().first;
+    broadcastPayloadBot["message"] = "Atualização de jogada do bot na sala";
+
+    QJsonObject broadcastBot;
+    broadcastBot["type"] = "JOGAR_CARTA_ATUALIZATION";
+    broadcastBot["payload"] = broadcastPayloadBot;
+
+    broadcastToSala(codigoSala, broadcastBot);
+
+    qDebug() << "Turno anterior: "<<game->getTurnoAnterior() << "Turno atual: " << game->getTurno();
+    if((game->getTurnoAnterior() + game->getTurno()) % 12 == 0 && game->getTurnoAnterior() != 0){
+
+        game->proximaRodada();
+        QJsonObject broadcastPayloadInicial;
+
+        broadcastPayloadInicial["codigo"] = codigoSala;
+        broadcastPayloadInicial["userID"] = game->getJogadores()[game->getIdxJogadorVencedor()]->getNome();
+        broadcastPayloadInicial["indiceVencedor"] = game->getIdxJogadorVencedor();
+        broadcastPayloadInicial["pntDupla1Rodada1"] = game->getpontosRodadaDupla1()[0];
+        broadcastPayloadInicial["pntDupla1Rodada2"] = game->getpontosRodadaDupla1()[1];
+        broadcastPayloadInicial["pntDupla1Rodada3"] = game->getpontosRodadaDupla1()[2];
+        broadcastPayloadInicial["pntDupla2Rodada1"] = game->getpontosRodadaDupla2()[0];
+        broadcastPayloadInicial["pntDupla2Rodada2"] = game->getpontosRodadaDupla2()[1];
+        broadcastPayloadInicial["pntDupla2Rodada3"] = game->getpontosRodadaDupla2()[2];
+        broadcastPayloadInicial["message"] = "Atualização de vencedor na sala";
+
+        QJsonObject broadcastInicial;
+        broadcastInicial["type"] = "VENCEDOR_RODADA_ATUALIZATION";
+        broadcastInicial["payload"] = broadcastPayloadInicial;
+
+        broadcastToSala(codigoSala, broadcastInicial);
+    }
+
+    int proximoJogadorNaSequencia = (idxBotAtual + 1) % game->getJogadores().size();
+
+    if (game->getJogadores()[proximoJogadorNaSequencia]->getNome().contains("Bot")) {
+        qDebug() << "Próximo jogador também é um bot. Agendando próxima jogada do bot.";
+        QTimer::singleShot(1000, this, [this, codigoSala, proximoJogadorNaSequencia]() {
+            processarProximoTurnoBot(codigoSala, proximoJogadorNaSequencia);
+        });
+    } else {
+        qDebug() << "Próximo jogador não é um bot. Fim da sequência de jogadas de bots.";
+    }
+}
 

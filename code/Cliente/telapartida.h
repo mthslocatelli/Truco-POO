@@ -20,6 +20,7 @@ public:
 
     void animarJogada(int idxJogador, QString naipe, QString valor, int idxCarta);
     void atualizarInterface();
+    void executarJogadasBotsEncadeadas(int botIndex, int totalBots, int idxJogadorVencedor);
 
 signals:
     void sairPartida();
@@ -30,8 +31,7 @@ private slots:
     void on_btnCarta2_clicked();
     void on_btnCarta3_clicked();
     void on_btnTruco_clicked();
-    void animarJogadaBot(QLabel* cartaBot, int idx, std::function<void()> aoTerminar);
-    void executarJogadasBotsEncadeadas(int botIndex, int totalBots, int idxJogadorVencedor);
+    void animarJogadaBot(QLabel* cartaBot, int cartaAleatoria ,int idx, std::function<void()> aoTerminar);
 
 private:
     Ui::TelaPartida *ui;

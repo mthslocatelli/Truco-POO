@@ -76,7 +76,7 @@ void GameEngine::jogarCarta(int jogadorIdx, int cartaIdx) {
         cartasMesa.push_back(c);
         turno++;
         proxIdxJogador = (jogadorIdx + 1) % 4;
-        qDebug() <<  jogadores[jogadorIdx]->getNome() << "jogou" << cartasMesa.back().getValor();
+        qDebug() <<  jogadores[jogadorIdx]->getNome() << "jogou" << jogadores[jogadorIdx]->getMao()[cartaIdx].toString().first << "de" <<jogadores[jogadorIdx]->getMao()[cartaIdx].toString().second;
         cartasMesaAnimacao = cartasMesa;
     }else{
         auto c = jogadores[jogadorIdx]->jogarCarta(false);
@@ -85,14 +85,14 @@ void GameEngine::jogarCarta(int jogadorIdx, int cartaIdx) {
         turno++;
         proxIdxJogador = (jogadorIdx + 1) % 4;
         cartasMesaAnimacao = cartasMesa;
-        qDebug() <<  jogadores[jogadorIdx]->getNome() << "jogou" << cartasMesa.back().getValor();
+        qDebug() <<  jogadores[jogadorIdx]->getNome() << "jogou" <<  jogadores[jogadorIdx]->getMao()[cartaIdx].toString().first << "de" <<jogadores[jogadorIdx]->getMao()[cartaIdx].toString().second;
     }
 
     // Verificar se é fim de rodada
-    if (cartasMesa.size() == 4) {
-        avaliarRodada();
-        cartasMesa.clear();
-    }
+     if (cartasMesa.size() == 4) {
+         avaliarRodada();
+         cartasMesa.clear();
+     }
 
 }
 

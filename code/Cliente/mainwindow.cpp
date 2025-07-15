@@ -271,6 +271,16 @@
 
             emit atualizarLobby();
 
+        }else if(type == "VENCEDOR_RODADA_ATUALIZATION"){
+
+            QString codigo =payload["codigo"].toString();
+            QString userID = payload["userID"].toString();
+            int idxVencedor = payload["indiceVencedor"].toInt();
+
+            game->setIdxAtual(idxVencedor);
+            game->proximaRodada();
+            telaPartida->atualizarInterface();
+
         }else if (type == "JOGAR_CARTA_ATUALIZATION") {
 
             QString userID = payload["userID"].toString();

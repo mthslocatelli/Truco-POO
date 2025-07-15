@@ -29,6 +29,7 @@ private:
     void sendResponse(QTcpSocket *client, const QJsonObject &message);
     void processCommand(QTcpSocket *client, const QJsonObject &command);
     void broadcastToSala(const QString& codigoSala, const QJsonObject& message);
+    void processarProximoTurnoBot(const QString& codigoSala, int idxBotAtual);
 
     GameEngine* game;
     QTcpServer *m_tcpServer;

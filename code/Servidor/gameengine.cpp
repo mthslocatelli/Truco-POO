@@ -65,18 +65,20 @@ void GameEngine::jogarCarta(int jogadorIdx, int cartaIdx) {
     if(cartaIdx != -1){
         auto c = jogadores[jogadorIdx]->jogarCarta(cartaIdx);
         cartasMesa.push_back(c);
+        turnoAnterior = turno;
         turno++;
         proxIdxJogador = (jogadorIdx + 1) % 4;
-        qDebug() <<  jogadores[jogadorIdx]->getNome() << "jogou" << cartasMesa.back().getValor();
+        qDebug() <<  jogadores[jogadorIdx]->getNome() << "jogou" << jogadores[jogadorIdx]->getMao()[cartaIdx].toString().first << "de" <<jogadores[jogadorIdx]->getMao()[cartaIdx].toString().second;
         cartasMesaAnimacao = cartasMesa;
     }else{
         auto c = jogadores[jogadorIdx]->jogarCarta(false);
         cartaBotJogada = c;
         cartasMesa.push_back(c);
+        turnoAnterior = turno;
         turno++;
         proxIdxJogador = (jogadorIdx + 1) % 4;
         cartasMesaAnimacao = cartasMesa;
-        qDebug() <<  jogadores[jogadorIdx]->getNome() << "jogou" << cartasMesa.back().getValor();
+        qDebug() <<  jogadores[jogadorIdx]->getNome() << "jogou" << jogadores[jogadorIdx]->getMao()[cartaIdx].toString().first << "de" <<jogadores[jogadorIdx]->getMao()[cartaIdx].toString().second;
     }
 
     // Verificar se é fim de rodada
@@ -153,19 +155,25 @@ void GameEngine::avaliarRodada() {
 
     int qtdRodadas = 0;
     int qtdPontosDupla1 = 0;
+    int qtdPontosDupla2 = 0;
 
     for(int i = 0; i < int(pontosRodadaDupla1.size()); i++){
         qtdRodadas += pontosRodadaDupla1[i] + pontosRodadaDupla2[i];
         qtdPontosDupla1 += pontosRodadaDupla1[i];
+        qtdPontosDupla2 += pontosRodadaDupla2[i];
     }
 
     qDebug() << "Rodada:" << qtdRodadas;
 
 
-    if (qtdRodadas == 3){
-        if (qtdPontosDupla1 == 2) pontosDupla1 += valorRodada; else pontosDupla2 += valorRodada;
+    if (qtdPontosDupla1 == 2) {
+        pontosDupla1 += valorRodada;
         //cartasMesa.clear();
-        proximaRodada();
+        //proximaRodada();
+    } else if (qtdPontosDupla2 == 2){
+        pontosDupla2 += valorRodada;
+        //cartasMesa.clear();
+        //proximaRodada();
     }
 }
 

@@ -24,8 +24,8 @@ public:
     int getPontosDupla1() const { return pontosDupla1; }
     int getPontosDupla2() const { return pontosDupla2; }
     int getValorRodada() const { return valorRodada; }
-    const std::vector<int> getpontosRodadaDupla1() const { return pontosRodadaDupla1; }
-    const std::vector<int> getpontosRodadaDupla2() const { return pontosRodadaDupla2; }
+    std::vector<int> getpontosRodadaDupla1() { return pontosRodadaDupla1; }
+    std::vector<int> getpontosRodadaDupla2() { return pontosRodadaDupla2; }
     int getTurnoAnterior();
     int getTurno();
     bool getNovoJogo();
