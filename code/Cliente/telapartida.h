@@ -5,7 +5,6 @@
 #include "gameengine.h"
 #include <QLabel>
 #include "clientetruco.h"
-#include "servidortruco.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class TelaPartida; }
@@ -40,7 +39,6 @@ private:
     std::vector<QLabel*> cartasJogador2;
     std::vector<QLabel*> cartasJogador3;
     ClienteTruco *cliente;
-    ServidorTruco *servidor;
 
 };
 #endif // TELAPARTIDA_H
