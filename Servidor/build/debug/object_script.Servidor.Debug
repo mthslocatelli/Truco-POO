@@ -1,0 +1,11 @@
+debug/echoserver.o
+debug/main.o
+debug/mainwindow.o
+debug/gameengine.o
+debug/carta.o
+debug/baralho.o
+debug/jogador.o
+debug/jogadorbot.o
+debug/jogadorhumano.o
+debug/moc_echoserver.o
+debug/moc_mainwindow.o
